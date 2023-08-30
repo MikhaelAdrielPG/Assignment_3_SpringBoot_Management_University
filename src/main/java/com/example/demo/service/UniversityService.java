@@ -10,14 +10,11 @@ import java.util.List;
 
 @Service
 public class UniversityService {
-    private List<Student> students = new ArrayList<>();
+    private static final List<Student> students = new ArrayList<>();
 
     // Fungsi untuk Register Mahasiswa Baru
     public boolean registerStudent(Student student) {
-        if (student == null || student.getName() == null || student.getName().trim().isEmpty() ||
-                student.getMajor() == null || student.getMajor().trim().isEmpty()) {
-            return false;
-        }
+        isvalidStudent(student) ;
 
         // cek student dengan id yang sama , sudah ada
         for (Student existingStudent : students) {
@@ -60,10 +57,10 @@ public class UniversityService {
 
         for (Student student : students) {
             if (student.getId() == id && student.isActive()) {
-                if (updatedStudent.getName() != null && !updatedStudent.getName().trim().isEmpty()) {
+                if (isValidUpdateStudent(updatedStudent)) {
                     student.setName(updatedStudent.getName());
                 }
-                if (updatedStudent.getMajor() != null && !updatedStudent.getMajor().trim().isEmpty()) {
+                if (isValidUpdateStudent(updatedStudent)) {
                     student.setMajor(updatedStudent.getMajor());
                 }
                 if (updatedStudent.isActive() != student.isActive()) {
@@ -95,7 +92,7 @@ public class UniversityService {
         for (Student student : students) {
             for (Course course : student.getCourses()) {
                 if (course.getId() == id) {
-                    if (updatedCourse.getName() != null && !updatedCourse.getName().trim().isEmpty()) {
+                    if (isValidCourseUpdate(updatedCourse)) {
                         course.setName(updatedCourse.getName().trim());
                     }
                     return course;
@@ -120,19 +117,16 @@ public class UniversityService {
 
     // Fungsi untuk mendaftarkan kursus ke mahasiswa berdasarkan ID mahasiswa
     public boolean enrollCourse(int studentId, Course course) {
-        if (course == null || course.getName() == null || course.getName().trim().isEmpty()) {
-            return false;
-        }
+        isValidCourse(course);
 
-        Student student = getStudent(studentId);
-        if (student != null) {
-            for (Course existingCourse : student.getCourses()) {
+        if (getStudent(studentId) != null) {
+            for (Course existingCourse : getStudent(studentId).getCourses()) {
                 if (existingCourse.getId() == course.getId()) {
                     return false; // ID kursus sudah ada
                 }
             }
 
-            student.getCourses().add(course);
+            getStudent(studentId).getCourses().add(course);
             return true;
         } else {
             return false;
@@ -154,5 +148,36 @@ public class UniversityService {
             }
         }
         return false;
+    }
+
+    // validate student name
+    public boolean isValidName(String name) {
+        // Define a regex pattern to allow only letters and spaces
+        /*
+        ^           : Menandakan awal dari string.
+        [a-zA-Z\\s] : Cocok dengan karakter alfabet (baik huruf besar A-Z maupun kecil a-z) dan spasi (\\s).
+        +           : Menandakan bahwa pola sebelumnya (yaitu [a-zA-Z\\s]) dapat muncul satu atau lebih kali.
+        $           : Menandakan akhir dari string.
+        * */
+        String pattern = "^[a-zA-Z\\s]+$";
+
+        return name.matches(pattern);
+    }
+
+    public boolean isvalidStudent (Student student) {
+        return student != null && student.getName() != null && !student.getName().trim().isEmpty() &&
+                student.getMajor() != null && !student.getMajor().trim().isEmpty();
+    }
+
+    public boolean isValidUpdateStudent(Student updateStudent) {
+        return updateStudent.getName() != null && !updateStudent.getName().trim().isEmpty();
+    }
+
+    public boolean isValidCourseUpdate(Course updateCourse) {
+        return updateCourse.getName() != null && !updateCourse.getName().trim().isEmpty();
+    }
+
+    public boolean isValidCourse(Course course) {
+        return course != null && course.getName() != null && !course.getName().trim().isEmpty();
     }
 }

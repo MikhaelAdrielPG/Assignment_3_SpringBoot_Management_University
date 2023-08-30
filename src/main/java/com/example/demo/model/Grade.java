@@ -2,9 +2,9 @@ package com.example.demo.model;
 
 public class Grade {
     private String type; // misal : quiz atau exam
-    private double value;
+    private int value;
 
-    public Grade(String type, double value) {
+    public Grade(String type, int value) {
         this.type = type;
         this.value = value;
     }
@@ -21,7 +21,7 @@ public class Grade {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(int value) {
         this.value = value;
     }
 }

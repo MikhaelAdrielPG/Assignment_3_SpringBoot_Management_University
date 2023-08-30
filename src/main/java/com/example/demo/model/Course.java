@@ -20,10 +20,6 @@ public class Course {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -44,7 +40,4 @@ public class Course {
         return grades;
     }
 
-    public void setGrades(List<Grade> grades) {
-        this.grades = grades;
-    }
 }

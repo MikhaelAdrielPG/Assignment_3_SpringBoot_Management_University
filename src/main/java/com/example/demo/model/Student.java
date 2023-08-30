@@ -29,10 +29,6 @@ public class Student {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -51,23 +47,5 @@ public class Student {
 
     public List<Course> getCourses() {
         return courses;
-    }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
-    }
-
-    // validate student name
-    public boolean isValidName(String name) {
-        // Define a regex pattern to allow only letters and spaces
-        /*
-        ^           : Menandakan awal dari string.
-        [a-zA-Z\\s] : Cocok dengan karakter alfabet (baik huruf besar A-Z maupun kecil a-z) dan spasi (\\s).
-        +           : Menandakan bahwa pola sebelumnya (yaitu [a-zA-Z\\s]) dapat muncul satu atau lebih kali.
-        $           : Menandakan akhir dari string.
-        * */
-        String pattern = "^[a-zA-Z\\s]+$";
-
-        return name.matches(pattern);
     }
 }

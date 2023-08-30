@@ -18,12 +18,12 @@ public class UniversityController {
     // mendaftarkan mahasiswa baru
     @PostMapping("/student")
     public ResponseEntity registerStudent(@RequestBody Student student) {
-        if (student == null || student.getName() == null || student.getName().isEmpty()) {
+        if (!universityService.isvalidStudent(student)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new ApiResponse("Invalid student data.", null));
         }
 
-        if (!student.isValidName(student.getName())) {
+        if (!universityService.isValidName(student.getName())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new ApiResponse("Invalid name format.", null));
         }
@@ -71,7 +71,7 @@ public class UniversityController {
     public ResponseEntity enrollCourse(
             @PathVariable int studentId,
             @RequestBody Course course) {
-        if (course == null || course.getName() == null || course.getName().isEmpty()) {
+        if (!universityService.isValidCourse(course)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new ApiResponse("Invalid course data.", null));
         }
