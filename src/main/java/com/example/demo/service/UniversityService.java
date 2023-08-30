@@ -11,7 +11,6 @@ import java.util.List;
 @Service
 public class UniversityService {
     private List<Student> students = new ArrayList<>();
-    private int courseIdCounter = 1; // Ini untuk menghasilkan ID unik kursus
 
     // Fungsi untuk Register Mahasiswa Baru
     public boolean registerStudent(Student student) {
@@ -133,7 +132,6 @@ public class UniversityService {
                 }
             }
 
-            course.setId(courseIdCounter++); // Set ID unik untuk kursus
             student.getCourses().add(course);
             return true;
         } else {
