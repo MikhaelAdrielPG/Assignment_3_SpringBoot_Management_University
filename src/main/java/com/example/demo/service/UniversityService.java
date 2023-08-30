@@ -150,7 +150,7 @@ public class UniversityService {
         return false;
     }
 
-    // validate student name
+    // validasi nama student
     public boolean isValidName(String name) {
         // Define a regex pattern to allow only letters and spaces
         /*
@@ -164,19 +164,23 @@ public class UniversityService {
         return name.matches(pattern);
     }
 
+    // Fungsi untuk validasi saat registrasi student
     public boolean isvalidStudent (Student student) {
         return student != null && student.getName() != null && !student.getName().trim().isEmpty() &&
                 student.getMajor() != null && !student.getMajor().trim().isEmpty();
     }
 
+    // Fungsi untuk validasi saat update student
     public boolean isValidUpdateStudent(Student updateStudent) {
         return updateStudent.getName() != null && !updateStudent.getName().trim().isEmpty();
     }
 
+    // Fungsi untuk validasi saat update course
     public boolean isValidCourseUpdate(Course updateCourse) {
         return updateCourse.getName() != null && !updateCourse.getName().trim().isEmpty();
     }
 
+    // Fungsi untuk Validasi course
     public boolean isValidCourse(Course course) {
         return course != null && course.getName() != null && !course.getName().trim().isEmpty();
     }
